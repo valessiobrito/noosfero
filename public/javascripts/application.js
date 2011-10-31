@@ -720,7 +720,7 @@ jQuery(function($) {
   // Add a automatic replacer for password inputs
   function addPasswdReplacer(el) {
     var input = $('<input type="text" readonly="readonly" />')
-          .insertBefore(el).val( $(el).attr("placeholder") )[0];
+          .insertBefore(el).val( $(el).attr("placeholder") ).hide()[0];
     input.className = el.className +" placeholder";
     input.originalInput = el;
     el.placeholderMimic = input;

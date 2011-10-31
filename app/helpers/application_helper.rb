@@ -755,7 +755,7 @@ module ApplicationHelper
   class NoosferoFormBuilder < ActionView::Helpers::FormBuilder
   extend ActionView::Helpers::TagHelper
 
-    def self.output_field(text, field_html, field_id = nil)
+    def self.output_field(text, field_html, field_id=nil, placeholder=nil)
       # try to guess an id if none given
       if field_id.nil?
         field_html =~ /id=['"]([^'"]*)['"]/
@@ -766,17 +766,22 @@ module ApplicationHelper
       field_type = $1
       field_class = 'formfield type-' + field_type if field_type
 
-      label_html = content_tag('label', gettext(text), :class => 'formlabel', :for => field_id)
       control_html = content_tag('div', field_html, :class => field_class )
 
-      content_tag('div', label_html + control_html, :class => 'formfieldline' )
+      if placeholder
+        content_tag('div', control_html, :class => 'formfieldline' )
+      else
+        label_html = content_tag('label', gettext(text), :class => 'formlabel', :for => field_id)
+        content_tag('div', label_html + control_html, :class => 'formfieldline' )
+      end
     end
 
     (field_helpers - %w(hidden_field)).each do |selector|
       src = <<-END_SRC
         def #{selector}(field, *args, &proc)
           text = object.class.human_attribute_name(field.to_s)
-          NoosferoFormBuilder::output_field(text, super)
+          placeholder = args[0][:placeholder] if args[0]
+          NoosferoFormBuilder::output_field(text, super, nil, placeholder)
         end
       END_SRC
       class_eval src, __FILE__, __LINE__

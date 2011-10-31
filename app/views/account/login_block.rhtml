@@ -12,9 +12,11 @@
     <% labelled_form_for :user, @user,
        :url => login_url do |f| %>
 
-         <%= f.text_field :login, :onchange => 'this.value = convToValidLogin( this.value )' %>
+         <%= f.text_field :login,
+             :placeholder => _('User name'),
+             :onchange => 'this.value = convToValidLogin( this.value )' %>
 
-         <%= f.password_field :password %>
+         <%= f.password_field :password, :placeholder => _('Password') %>
 
       <% button_bar do %>
         <%= submit_button( 'login', _('Log in') )%>
