@@ -127,6 +127,10 @@ a img {
    -webkit-border-radius: 3px;
 }
 
+.placeholder {
+  color: #AAA;
+}
+
 /*********************************************************/
 
 
