@@ -9,9 +9,13 @@
 
 <% labelled_form_for :user, @user, :url => login_url do |f| %>
 
-     <%= f.text_field :login, :id => 'main_user_login', :onchange => 'this.value = convToValidLogin( this.value )', :value => params[:userlogin] %>
+     <%= f.text_field :login,
+                      :id => 'main_user_login',
+                      :placeholder => _('User name'),
+                      :onchange => 'this.value = convToValidLogin( this.value )',
+                      :value => params[:userlogin] %>
 
-     <%= f.password_field :password %>
+     <%= f.password_field :password, :placeholder => _('Password') %>
 
      <%= @plugins.dispatch(:login_extra_contents).collect { |content| instance_eval(&content) }.join("") %>
 

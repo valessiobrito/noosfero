@@ -935,3 +935,62 @@ jQuery(function($) {
   });
 
 });
+
+// Input Placeholder Fix. Inspired on:
+// http://www.hagenburger.net/BLOG/HTML5-Input-Placeholder-Fix-With-jQuery.html
+jQuery(function($) {
+
+  // Add a automatic replacer for text inputs
+  function addCommonReplacer(el) {
+    $(el).focus(function() {
+      var input = $(this);
+      if (input.val() == input.attr("placeholder")) {
+        input.val("");
+        input.removeClass("placeholder");
+      }
+    }).blur(function() {
+      var input = $(this);
+      if (input.val() == "" || input.val() == input.attr("placeholder")) {
+        input.addClass("placeholder");
+        input.val(input.attr("placeholder"));
+      }
+    });
+  }
+
+  // Add a automatic replacer for password inputs
+  function addPasswdReplacer(el) {
+    var input = $('<input type="text" readonly="readonly" />')
+          .insertBefore(el).val( $(el).attr("placeholder") ).hide()[0];
+    input.className = el.className +" placeholder";
+    input.originalInput = el;
+    el.placeholderMimic = input;
+    $(input).focus(function() {
+      $(this).hide();
+      $(this.originalInput).show().focus();
+    });
+    $(el).blur(function() {
+      if (this.value == "" ) {
+        $(this).hide();
+        $(this.placeholderMimic).show();
+      }
+    });
+  }
+
+  // Recognize inputs with placeholder and add the correct replacer
+  $("[placeholder]").each(function(num, el) {
+    if (el.type == "password") addPasswdReplacer(el)
+    else addCommonReplacer(el)
+    $(el).blur(); // this blur() starts the placeholder
+  });
+
+  // Remove the placeholder text on submit
+  $("[placeholder]").parents("form").submit(function() {
+    $(this).find("[placeholder]").each(function() {
+      var input = $(this);
+      if (input.val() == input.attr("placeholder")) {
+        input.val("");
+      }
+    })
+  });
+
+});
