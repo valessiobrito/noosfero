@@ -216,9 +216,7 @@ th {
   font-weight: bold;
   border-bottom: 2px solid black;
 }
-td {
-  border-bottom: 1px solid #e0e0e0;
-}
+
 tr:hover td {
   background-color: #f0f0f0;
 }
@@ -301,24 +299,29 @@ div.pending-tasks {
 }
 /* sitemap and agenda */
 
+
 .agenda-item a.icon, .sitemap-item a.icon {
-  background-repeat: no-repeat;
-  padding-left: 20px;
+  background-image: none;
+  line-height: 150%;
 }
 .agenda-item .icon:hover, .sitemap-item .icon:hover {
   background-color: transparent;
+  text-decoration: underline;
 }
-.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited {
+.agenda-item a, a:visited{
+ font-weight: bold;
+ color: black;
+}
+
+.sitemap-item a:link, .agenda-item a:link, .sitemap-item a:visited, .agenda-item a:visited, .agenda a:hover {
   border: none;
   text-decoration: none;
 }
+
 .sitemap-item img, .agenda-item img {
   border: none;
 }
-.sitemap-item a:hover, .agenda-item a:hover {
-  color: red;
-  text-decoration: underline;
-}
+
 .last-update {
   font-size: 12px;
 }
@@ -382,7 +385,7 @@ div.pending-tasks {
   font-size: 11px;
 }
 #category-ajax-selector .select-subcategory-link:hover {
-  background-color: #FFA;
+  background-color: black;
 }
 #category-ajax-selector .button {
   display: block;
@@ -880,40 +883,6 @@ code input {
   top: 16px;
 }
 .webkit #manage-enterprises .simplemenu-submenu {
-  top: 20px;
-}
-#manage-communities {
-  display: inline-block;
-  margin-right: 5px;
-  position: relative;
-}
-#manage-communities .ui-icon {
-  position: absolute;
-  top: 0;
-  right: -20px;
-}
-#manage-communities .simplemenu-submenu {
-  text-align: left;
-  left: -20px;
-  width: 200px;
-}
-#manage-communities .simplemenu-item {
-  padding: 5px 0;
-}
-#manage-communities .simplemenu-item a {
-  background-repeat: no-repeat;
-  padding-left: 20px;
-}
-#manage-communities .simplemenu-item a span {
-  display: none;
-}
-.msie8 #manage-communities-link { /* IE8 hack */
-  border: 0px solid;
-}
-.msie8 #manage-communities .simplemenu-submenu {
-  top: 16px;
-}
-.webkit #manage-communities .simplemenu-submenu {
   top: 20px;
 }
 #article {
@@ -1448,9 +1417,7 @@ a.comment-picture {
   display: inline;
 }
 #content #boxes .box-1 .article-block img,
-#content #article .article-body img,
-#content #article .article-body video,
-#content #article .article-body audio {
+#content #article .article-body img {
   max-width: 100%;
   height: auto;
 }
@@ -1586,9 +1553,8 @@ a.button.disabled, input.disabled {
 .map {
   clear: both;
 }
-
 /***********************************************************
- * style for blocks 
+ * style for blocks
  ***********************************************************/
 
 #content .communities-block .profile-image {
@@ -1652,23 +1618,21 @@ a.button.disabled, input.disabled {
  ************************************************/
 
 .block-target {
-  margin: 5px;
-  height: 2px;
-  height: 15px;
-  border: 1px dashed #e0e0e0;
+  padding: 2px;
+  background: #ffd;
+  margin-bottom: 5px;
 }
 .block-target-hover {
   background: #ffd;
-  border: 1px solid red;
+  border: 1px solid #000;
   height: 30px;
+  box-shadow: 0 0 15px #888 inset;
 }
 /*************************************************************
  * put borders around boxes and blocks when organizing boxes *
  *************************************************************/
 
 #box-organizer div.box {
-  border: 1px solid #ccc;
-  background-color: white;
   background-repeat: no-repeat;
   background-position: top right;
 }
@@ -1681,28 +1645,74 @@ a.button.disabled, input.disabled {
 #box-organizer div.box-3 {
   background-image: url(../images/blocks/3.png);
 }
-#box-organizer div.box-1 .block {
-  outline: 2px dashed green;
+#box-organizer .block {
+  cursor: move;
 }
+#box-organizer .block:hover {
+    box-shadow: 0px 0px 0px 2px #FFF,
+                0px 0px 0px 2px #FFF,
+                0px 0px 10px rgba(0, 0, 0, 0.6);
+    outline: none;
+}
+#box-organizer .block {
+  cursor: move;
+  position: relative;
+  min-height: 20px;
+}
+
+#box-organizer .block .button-bar {
+  cursor: move;
+  position: absolute;
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.3);
+  top: -40px;
+  padding-bottom: 40px;
+  display: none;
+}
+
+#box-organizer .block:focus .button-bar,
+#box-organizer .block:hover .button-bar {
+  display: block;
+}
+
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed green;
-}
-#box-organizer div.box-2 .block {
-  outline: 2px dashed red;
 }
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed red;
 }
-#box-organizer div.box-3 .block {
-  outline: 2px dashed blue;
-}
 .msie #box-organizer div.box-1 .block {
   border: 2px dashed blue;
 }
-.block-footer-content {
-  clear: both;
-  margin-top: 1em;
+/************************************************************
+ * custom interation blocks on drag n drop                  *
+ ***********************************************************/
+#box-organizer .main-block {
+  font-size: 24px;
   text-align: center;
+  box-shadow: none;
+  outline: none;
+  display: block;
+  height: 150px;
+  line-height: 120px;
+}
+#box-organizer .main-block:hover {
+    border: 0px;
+    border-style: none;
+    box-shadow: none;
+    outline: none;
+}
+/* FIX Error show option buttons on blocks */
+#box-organizer .feed-reader-block,
+#box-organizer .article-block,
+#box-organizer .recent-documents-block {
+  overflow: visible !important;
+}
+
+#box-organizer .blog-post {
+  margin: auto;
 }
 
 /****************************************
@@ -1750,7 +1760,7 @@ a.button.disabled, input.disabled {
   margin: 3px 0;
 }
 
-/* ==> blocks/tags-block.css <<= */ 
+/* ==> blocks/tags-block.css <<= */
 
 .tags-block {
 }
@@ -1761,7 +1771,7 @@ a.button.disabled, input.disabled {
 .tags-block .tag_cloud a:hover {
   color: red;
 }
-/* ==> blocks/my-network-block.css <<= */ 
+/* ==> blocks/my-network-block.css <<= */
 
 #content .my-network-block {
   padding: 10px 0px 10px 10px;
@@ -1769,7 +1779,7 @@ a.button.disabled, input.disabled {
 .my-network-block a {
   text-decoration: none;
 }
-/* ==> blocks/link-list-block.css <<= */ 
+/* ==> blocks/link-list-block.css <<= */
 
 #edit-link-list-block table {
   width: 100%;
@@ -1828,8 +1838,7 @@ a.button.disabled, input.disabled {
   border: 1px solid black;
   background-color: #555;
 }
-/* ==> blocks/profile-list-block.css <<= */ 
-
+/* ==> blocks/profile-list-block.css <<= */
 
 #content .profile-list-block h3 {
   text-align: center;
@@ -1968,7 +1977,7 @@ a.button.disabled, input.disabled {
   opacity: 0.5;
   filter: alpha(opacity=50);
 }
-/* ==> blocks/recent-documents-block.css <<= */ 
+/* ==> blocks/recent-documents-block.css <<= */
 
 #content .recent-documents-block {
   padding: 10px 0px 10px 10px;
@@ -3038,10 +3047,6 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
   display: inline-block;
 }
 
-#manage-product-details-form .formfieldline {
-  white-space: nowrap;
-}
-
 #manage-product-details-form .formlabel,
 #manage-product-details-form .formfield {
   display: inline-block;
@@ -3105,55 +3110,21 @@ div#activation_enterprise label, div#activation_enterprise input, div#activation
 
 /* ==> public/stylesheets/controller_cms.css <== */
 
-table.cms-articles {
-  table-layout: fixed;
-  width: 100%;
-}
-
-table.cms-articles td:first-child,
-table.cms-articles th:first-child {
-  width: 50%;
-}
-
-table.cms-articles td:nth-child(2) {
-  font-size: 10px;
-}
-
-table.cms-articles td:last-child,
-table.cms-articles th:last-child {
-  width: 121px;
-}
 
 table.cms-articles img {
   width: 16px;
   height: 16px;
 }
-
 table.cms-articles a.icon {
   display: block;
   border: none;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
-
 table.cms-articles a.icon, table.cms-articles a.icon-parent-folder {
   padding: 0px 0px 3px 20px;
   background-repeat: no-repeat;
 }
 table.cms-articles .icon:hover {
   background-color: transparent;
-}
-
-#content table.cms-articles .button:hover,
-#content table.cms-articles .button {
-  margin: 0;
-  float: left;
-  border-right: none;
-}
-
-#content table.cms-articles .button:last-child {
-  border-right: 1px solid #ccc;
 }
 
 .select-article-type {
@@ -3211,14 +3182,6 @@ table.cms-articles .icon:hover {
   background: #eeeeec;
   border: 1px solid #d3d7cf;
 }
-
-.controller-cms .article-mime {
-  max-width: 90px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 .controller-cms .article-controls {
   white-space: nowrap;
 }
@@ -3489,7 +3452,26 @@ div#article-parent {
 .article-body-uploaded-file {
   text-align: center;
 }
+/************* uploaded file *****************/
 
+#article .gallery-navigation {
+  padding: 10px 0;
+}
+#article .gallery-navigation .left {
+  margin-right: 10px;
+}
+#article .gallery-navigation .right {
+  margin-left: 10px;
+}
+#article .gallery-navigation .total-of-images {
+  font-weight: bold;
+}
+#article .uploaded-file-description {
+  background: #f6f6f6;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+  padding: 1em;
+}
 /* ==> public/stylesheets/controller_events.css <== */
 #agenda {
   position: relative;
@@ -3499,18 +3481,19 @@ div#article-parent {
   width: 50%;
 }
 #agenda td, #agenda th {
-  padding: 0px;
+  padding: 15px;
+  padding-right: 0px;
 }
 #agenda .agenda-calendar .previous-month td, #agenda .agenda-calendar .previous-month th, #agenda .agenda-calendar .next-month td, #agenda .agenda-calendar .next-month th {
-  font-size: 10px;
-  color: gray;
+  font-size: 12px;
+  color: black;
 }
 #agenda .agenda-calendar .current-month td {
 }
 #agenda .agenda-calendar .calendar-day {
 }
 #agenda .agenda-calendar .calendar-day-out {
-  color: gray;
+  color: black;
 }
 #agenda .agenda-calendar .calendar-day-out span {
   display: none;
@@ -3527,7 +3510,7 @@ div#article-parent {
 }
 #agenda .agenda-calendar .current-month {
   height: 250px;
-  border-bottom: 1px solid #BFC2BC;
+  border-bottom: 1px solid black;
 }
 #agenda .agenda-calendar .previous-month, #agenda .agenda-calendar .next-month {
   float: left;
@@ -3564,7 +3547,7 @@ div#article-parent {
   width: 45%;
   top: 0px;
   height: 100%;
-  border-left: 1px solid #BFC2BC;
+  /*border-left: 1px solid #BFC2BC;*/
   padding-left: 20px;
 }
 #agenda #events-of-the-day #agenda-items {
@@ -3572,6 +3555,8 @@ div#article-parent {
   overflow: auto;
   overflow-x: hidden;
   height: 90%;
+  background: white;
+  border: none;
 }
 #agenda-toolbar {
   float: right;
